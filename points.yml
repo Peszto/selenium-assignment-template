@@ -119,7 +119,7 @@ basic:
     description: "Read and verify the page title using getTitle()"
 
   page_object_pattern:       # 3 pts | once
-    done: false
+    done: true
     description: "Use Page Object pattern with at least 2 page classes"
     link: "https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/"
 
