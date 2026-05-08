@@ -21,8 +21,9 @@ public class BooksPage extends BasePage {
         super(driver);
     }
 
-    public void open(String url) {
-        driver.get(url);
+    @Override
+    public void open() {
+        driver.get(baseUrl + "/konyvek");
         waitForPageToLoad();
         acceptCookiesIfPresent();
     }

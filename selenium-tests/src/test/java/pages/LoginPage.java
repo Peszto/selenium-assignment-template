@@ -13,7 +13,6 @@ public class LoginPage extends BasePage {
     private static final By SUBMIT_BUTTON = By.cssSelector("button.submitbutton.okbutton");
     private static final By ERROR_MESSAGE = By.id("jquery-msg-content");
     private static final By LOGIN_PANEL = By.id("popup-login_panel");
-    private static final By PROFILE_NAV_ITEM = By.cssSelector("div.main_menu_profile");
     private static final By LOGIN_LINK = By.xpath(
             "//div[contains(@class,'popup-login_link') and contains(@class,'popup-login_button_on')]" +
             " | //div[contains(@class,'main_menu_login2')]//div[contains(@class,'menu_divitem_click')]"
@@ -24,7 +23,8 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    public void open(String baseUrl) {
+    @Override
+    public void open() {
         driver.get(baseUrl);
         waitForPageToLoad();
         acceptCookiesIfPresent();
@@ -74,19 +74,6 @@ public class LoginPage extends BasePage {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(LOGIN_LINK));
         } catch (TimeoutException ignored) {}
-    }
-
-    public boolean isLoginPopupOpen() {
-        try {
-            String panelClass = driver.findElement(LOGIN_PANEL).getAttribute("class");
-            return panelClass != null && panelClass.contains("rb-popuppanel-visibled");
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean isLoggedIn() {
-        return isPresentWithShortWait(PROFILE_NAV_ITEM);
     }
 
     public boolean isErrorMessageDisplayed() {

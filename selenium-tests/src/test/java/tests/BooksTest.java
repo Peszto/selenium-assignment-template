@@ -4,21 +4,14 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.BooksPage;
-import utils.ConfigReader;
 
 import java.util.List;
 
 public class BooksTest extends BaseTest {
 
-    private BooksPage openBooksPage() {
-        BooksPage booksPage = new BooksPage(driver);
-        booksPage.open(ConfigReader.get("base.url") + "/konyvek");
-        return booksPage;
-    }
-
     @Test(description = "Books page displays at least one product")
     public void booksPageDisplaysAtLeastOneProduct() {
-        BooksPage booksPage = openBooksPage();
+        BooksPage booksPage = userActions.openBooksPage();
 
         Assert.assertTrue(booksPage.getProductCount() > 0,
                 "Books page should display at least one product card");
@@ -26,7 +19,7 @@ public class BooksTest extends BaseTest {
 
     @Test(description = "Books page title contains 'Moobius'")
     public void booksPageTitleContainsMoobius() {
-        BooksPage booksPage = openBooksPage();
+        BooksPage booksPage = userActions.openBooksPage();
 
         Assert.assertTrue(booksPage.getPageTitle().contains("Moobius"),
                 "Books page title should contain 'Moobius', but was: " + booksPage.getPageTitle());
@@ -34,7 +27,7 @@ public class BooksTest extends BaseTest {
 
     @Test(description = "Sort dropdown lists all expected sort options")
     public void sortDropdownHasExpectedOptions() {
-        BooksPage booksPage = openBooksPage();
+        BooksPage booksPage = userActions.openBooksPage();
 
         List<String> options = booksPage.getSortOptions();
 
@@ -48,7 +41,7 @@ public class BooksTest extends BaseTest {
 
     @Test(description = "Selecting a sort option via the Select class changes the active selection")
     public void selectingSortOptionChangesSelection() {
-        BooksPage booksPage = openBooksPage();
+        BooksPage booksPage = userActions.openBooksPage();
 
         booksPage.sortBy("Cím szerint A-Z");
 

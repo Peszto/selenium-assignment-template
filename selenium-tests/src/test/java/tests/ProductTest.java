@@ -12,8 +12,7 @@ public class ProductTest extends BaseTest {
 
     @Test(description = "Product page has a comment textarea with the correct placeholder")
     public void productPageHasCommentTextarea() {
-        ProductPage productPage = new ProductPage(driver);
-        productPage.open(PRODUCT_URL);
+        ProductPage productPage = userActions.openProductPage(PRODUCT_URL);
 
         productPage.switchToCommentsTab();
 

@@ -17,12 +17,6 @@ public class NavigationTest extends BaseTest {
     private static final String EBOOK_URL = "https://moobius.hu/ekonyveim";
     private static final String BOARD_GAME_URL = "https://moobius.hu/hir/gyonyoru-tematikus-tarsasjatekok";
 
-    private HomePage openHomePage() {
-        HomePage homePage = new HomePage(driver);
-        homePage.open(ConfigReader.get("base.url"));
-        return homePage;
-    }
-
     @Test(description = "Key pages are reachable and all have 'Moobius' in the title")
     public void keyPagesAreReachableAndHaveMoobiusInTitle() {
         String[][] pages = {
@@ -57,7 +51,7 @@ public class NavigationTest extends BaseTest {
 
     @Test(description = "Hovering over the Könyvek nav item reveals a dropdown")
     public void hoveringOverBooksNavItemRevealsDropdown() {
-        HomePage homePage = openHomePage();
+        HomePage homePage = userActions.openHomePage();
 
         homePage.hoverOverBooksNavItem();
 

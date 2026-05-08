@@ -5,20 +5,13 @@ import org.openqa.selenium.Cookie;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
-import utils.ConfigReader;
 import utils.RandomDataGenerator;
 
 public class HomePageTest extends BaseTest {
 
-    private HomePage openHomePage() {
-        HomePage homePage = new HomePage(driver);
-        homePage.open(ConfigReader.get("base.url"));
-        return homePage;
-    }
-
     @Test(description = "Home page title contains 'Moobius'")
     public void homePageTitleContainsMoobius() {
-        HomePage homePage = openHomePage();
+        HomePage homePage = userActions.openHomePage();
 
         Assert.assertTrue(homePage.getPageTitle().contains("Moobius"),
                 "Home page title should contain 'Moobius', but was: " + homePage.getPageTitle());
@@ -26,7 +19,7 @@ public class HomePageTest extends BaseTest {
 
     @Test(description = "Moobius logo is visible on the home page")
     public void moobiusLogoIsVisibleOnHomePage() {
-        HomePage homePage = openHomePage();
+        HomePage homePage = userActions.openHomePage();
 
         Assert.assertTrue(homePage.isLogoDisplayed(),
                 "Moobius logo should be visible on the home page");
@@ -34,7 +27,7 @@ public class HomePageTest extends BaseTest {
 
     @Test(description = "A cookie can be added, read back, and then deleted")
     public void cookieCanBeAddedReadAndDeleted() {
-        openHomePage();
+        userActions.openHomePage();
 
         Cookie testCookie = new Cookie("selenium_test", "hello123");
         driver.manage().addCookie(testCookie);
@@ -51,7 +44,7 @@ public class HomePageTest extends BaseTest {
 
     @Test(description = "Searching with a random term navigates to a search results page")
     public void searchingWithRandomTermNavigatesToResultsPage() {
-        HomePage homePage = openHomePage();
+        HomePage homePage = userActions.openHomePage();
         String term = RandomDataGenerator.randomSearchTerm();
 
         homePage.searchFor(term);
@@ -65,7 +58,7 @@ public class HomePageTest extends BaseTest {
 
     @Test(description = "Page can be scrolled to the bottom using JavaScript")
     public void pageCanBeScrolledToBottomWithJavaScript() {
-        HomePage homePage = openHomePage();
+        HomePage homePage = userActions.openHomePage();
 
         homePage.scrollToBottom();
 
@@ -75,7 +68,7 @@ public class HomePageTest extends BaseTest {
 
     @Test(description = "Newsletter form can be filled, checkbox checked, and form submitted")
     public void newsletterFormCanBeFilledAndSubmitted() {
-        HomePage homePage = openHomePage();
+        HomePage homePage = userActions.openHomePage();
         String name  = RandomDataGenerator.randomFirstName();
         String email = RandomDataGenerator.randomEmail();
 

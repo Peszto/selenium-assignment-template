@@ -9,11 +9,15 @@ public class ProductPage extends BasePage {
     private static final By COMMENT_TEXTAREA = By.cssSelector("textarea[name='description']");
     private static final By COMMENT_TAB = By.xpath("//div[contains(@class,'rb-tabbed-master-item-name')]//p[contains(text(),'Hozzászólások')]");
 
-    public ProductPage(WebDriver driver) {
+    private final String url;
+
+    public ProductPage(WebDriver driver, String url) {
         super(driver);
+        this.url = url;
     }
 
-    public void open(String url) {
+    @Override
+    public void open() {
         driver.get(url);
         waitForPageToLoad();
         acceptCookiesIfPresent();

@@ -26,8 +26,9 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    public void open(String url) {
-        driver.get(url);
+    @Override
+    public void open() {
+        driver.get(baseUrl);
         waitForPageToLoad();
         acceptCookiesIfPresent();
     }

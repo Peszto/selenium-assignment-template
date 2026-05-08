@@ -5,12 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.time.Duration;
 
 public class AccountPage extends BasePage {
 
     private static final By PROFILE_ICON = By.xpath("//div[contains(@class, 'main_menu_profile')]//div[contains(@class, 'menu_divitem_click')]");
     private static final By MY_PAGE_ITEM = By.xpath("//div[contains(@class,'menu_childitems')]//div[contains(text(),'Saját oldalam')]");
+    private static final By LOGIN_BUTTON = By.xpath("//div[contains(text(),'Belépés')]");
     private static final By FIRST_NAME_FIELD = By.xpath(
             "//input[@name='FirstName' or @id='FirstName' or @name='KeresztNev' or @id='KeresztNev']"
     );
@@ -25,8 +25,14 @@ public class AccountPage extends BasePage {
         super(driver);
     }
 
-    public void openViaNavItem() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(text(),'Belépés')]")));
+    @Override
+    public void open() {
+
+        if (!isLoggedIn()) {
+            throw new IllegalStateException("Navigation to Account Page failed: User session not detected (Logout button not found).");
+        }
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(LOGIN_BUTTON));
 
         WebElement profileMenu = wait.until(ExpectedConditions.presenceOfElementLocated(PROFILE_ICON));
         js.executeScript("arguments[0].click();", profileMenu);

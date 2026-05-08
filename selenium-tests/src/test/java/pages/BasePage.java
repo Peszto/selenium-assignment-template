@@ -9,7 +9,7 @@ import utils.ConfigReader;
 import java.time.Duration;
 import java.util.List;
 
-public class BasePage {
+public abstract class BasePage {
 
     protected final WebDriver driver;
     protected final WebDriverWait wait;
@@ -19,14 +19,29 @@ public class BasePage {
     private static final Duration DEFAULT_TIMEOUT = ConfigReader.getExplicitWait();
     private static final Duration SHORT_TIMEOUT = ConfigReader.getShortWait();
 
+    protected static final By PROFILE_NAV_ITEM = By.cssSelector("div.main_menu_profile");
     private static final By COOKIE_BANNER = By.cssSelector("div.rb-cookiealert-cover-page");
     private static final By COOKIE_ACCEPT_BTN = By.cssSelector(".rb-cookiealert-button-ok");
+
+    protected final String baseUrl = ConfigReader.get("base.url");
 
     public BasePage(WebDriver driver) {
         this.driver  = driver;
         this.wait    = new WebDriverWait(driver, DEFAULT_TIMEOUT);
         this.actions = new Actions(driver);
         this.js      = (JavascriptExecutor) driver;
+    }
+
+    public abstract void open();
+
+    public void open(String url) {
+        driver.get(url);
+        waitForPageToLoad();
+        acceptCookiesIfPresent();
+    }
+
+    public boolean isLoggedIn() {
+        return isPresentWithShortWait(PROFILE_NAV_ITEM);
     }
 
     protected WebElement waitForVisible(By locator) {
