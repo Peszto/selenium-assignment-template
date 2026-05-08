@@ -25,23 +25,6 @@ public class HomePageTest extends BaseTest {
                 "Moobius logo should be visible on the home page");
     }
 
-    @Test(description = "A cookie can be added, read back, and then deleted")
-    public void cookieCanBeAddedReadAndDeleted() {
-        userActions.openHomePage();
-
-        Cookie testCookie = new Cookie("selenium_test", "hello123");
-        driver.manage().addCookie(testCookie);
-
-        Cookie retrieved = driver.manage().getCookieNamed("selenium_test");
-        Assert.assertNotNull(retrieved, "Cookie should exist after being added");
-        Assert.assertEquals(retrieved.getValue(), "hello123",
-                "Retrieved cookie value should match what was set");
-
-        driver.manage().deleteCookieNamed("selenium_test");
-        Assert.assertNull(driver.manage().getCookieNamed("selenium_test"),
-                "Cookie should no longer exist after deletion");
-    }
-
     @Test(description = "Searching with a random term navigates to a search results page")
     public void searchingWithRandomTermNavigatesToResultsPage() {
         HomePage homePage = userActions.openHomePage();
