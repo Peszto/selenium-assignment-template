@@ -20,8 +20,8 @@ student:
 # ----------------------------------------------------------
 ai_usage:
   used: false
-  tools: ""           # e.g. "Claude, GitHub Copilot"
-  description: ""     # e.g. "Used Claude to generate initial Page Object 
+  tools: "Claude"           # e.g. "Claude, GitHub Copilot"
+  description: "Used to review the codebase for anything that I might have missed + generate test skeletons based on my instructions"     # e.g. "Used Claude to generate initial Page Object 
                        #  classes, then modified them manually. Used Copilot 
                        #  for autocomplete while writing test methods."
                        
